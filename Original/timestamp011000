@@ -1,0 +1,13 @@
+ Time step #        11000
+ Time:   0.2899700      seconds
+ Elapsed time in seconds =    16015.7108829021     
+ Elapsed time in hh:mm:ss =    4 h 26 m 55 s
+ Mean elapsed time per time step in seconds =    1.45597371662747     
+ Max norm displacement vector U in all slices (m) =   1.9585275E+08
+ Time steps done =        11000  out of        20000
+ Time steps remaining =         9000
+ Estimated remaining time in seconds =    13103.7634496472     
+ Estimated remaining time in hh:mm:ss =    3 h 38 m 23 s
+ Estimated total run time in seconds =    29119.4743325494     
+ Estimated total run time in hh:mm:ss =    8 h 05 m 19 s
+ We have done    55.00000     % of that

@@ -1,0 +1,13 @@
+ Time step #         3000
+ Time:   4.9970001E-02  seconds
+ Elapsed time in seconds =    4673.93770480156     
+ Elapsed time in hh:mm:ss =    1 h 17 m 53 s
+ Mean elapsed time per time step in seconds =    1.55797923493385     
+ Max norm displacement vector U in all slices (m) =   1.9586522E+08
+ Time steps done =         3000  out of        20000
+ Time steps remaining =        17000
+ Estimated remaining time in seconds =    26485.6469938755     
+ Estimated remaining time in hh:mm:ss =    7 h 21 m 25 s
+ Estimated total run time in seconds =    31159.5846986771     
+ Estimated total run time in hh:mm:ss =    8 h 39 m 19 s
+ We have done    15.00000     % of that
