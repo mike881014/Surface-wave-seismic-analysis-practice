@@ -1,5 +1,5 @@
 clear all,close all,clc
-cd('D:\模擬\Surface-wave-seismic-analysis-practice\GH-Ver');
+cd('D:\模擬\Surface-wave-seismic-analysis-practice\third-ver\');
 % In the practicing now:
 % Z: vertical direction, 
 % X: radial direction, 
@@ -11,8 +11,6 @@ NF=last_fnu-first_fnu+1; % Number of files
 
 
 fn1='DB.X';
-Direction_X='X';fn3_X=['.FX',Direction_X,'.semd'];
-Direction_Y='Y';fn3_Y=['.FX',Direction_Y,'.semd'];
 Direction_Z='Z';fn3_Z=['.FX',Direction_Z,'.semd'];
 
 for i=1:1:NF % 
@@ -70,7 +68,7 @@ vmin = 0; vmax=2000; dv=1;
 % Analysis wave length range
 lmin=0; lmax=100; dl=1;
 % Analysis wave number range
-kmin=-80; kmax=80; dk=1;
+kmin=-4; kmax=4; dk=1;
 
 % Peform f-v transform, f-v
 [f,v,A_Z_v,Z_fx]=fv(y_Z,dt,x,fmin,fmax,df,vmin,vmax,dv);
@@ -84,19 +82,19 @@ kmin=-80; kmax=80; dk=1;
 
 fe=f;
 Vphe_Z_v=zeros(length(fe),1);
-for i=1:length(fe);
+for i=1:length(fe)
    [Amax_v Ai_v]=max(A_Z_v(i,:));
    Vphe_Z_v(i)=v(Ai_v);
    An_Z_v(i,:) = A_Z_v(i,:)/Amax_v;
 end
 
 Vphe_Z_k=zeros(length(fe),1);
-for i=1:length(fe);
+ke=zeros(length(fe),1);
+for i=1:length(fe)
    [Amax_k Ai_k]=max(A_Z_k(i,:));
-   Vphe_Z_k(i)=k(Ai_k);
-   An_Z_k(i,:) = A_Z_k(i,:)/Amax_k;
+   ke(i)=k(Ai_k);
+   Vphe_Z_k(i) = 2*pi*fe(i)/k(Ai_k);
 end
-
 
 %% Radial to vertical relation (sRVSR, RVPD and RVSR) f-v version.
 % CWU=conj(Z_fx).*X_fx;
@@ -155,19 +153,21 @@ end
 %% Plot in f-v domain
 figure;
 % subplot(131),imagesc(f,v,An_Z);colormap(jet);
-imagesc(f, v, An_Z_v);colormap(jet); % 先別加 subplot，圖會變小張 4/13
+imagesc(v, f, An_Z_v);colormap(jet); % 先別加 subplot，圖會變小張 4/13
 % cs=0.5; cmap=(meshgrid(1:-1/63:0,1:3)').^cs;colormap(cmap);
 hold on;plot(Vphe_Z_v,fe,'w.','Markersize',10);
 ylabel('Phase Velocity, V_{ph} (m/s)');xlabel('Frequency, f (Hz)'); title('F-V Vertical')
-set(gca,'fontsize',14,'YDir', 'normal');
+set(gca,'fontsize',14);
 
 %% Plot in f-k domain
 figure;
 % subplot(131),imagesc(f,v,An_Z);colormap(jet);
-imagesc(f, k, An_Z_k);colormap(jet); % 先別加 subplot，圖會變小張 4/13
-% cs=0.5; cmap=(meshgrid(1:-1/63:0,1:3)').^cs;colormap(cmap);
-hold on;plot(Vphe_Z_k,fe,'w.','Markersize',10);
-ylabel('Phase Velocity, V_{ph} (m/s)');xlabel('Frequency, f (Hz)'); title('F-K Vertical')
+imagesc(k, f, A_Z_k);colormap(jet); % 先別加 subplot，圖會變小張 4/13
+% c1=0; c2=0; c3=0; cs=1;; cmap=[1:-(1-c1)/63:c1; 1:-(1-c2)/63:c2; 1:-(1-c3)/63:c3]';cmap=cmap.^cs;
+% colormap(cmap);
+colorbar;
+hold on;plot(ke,fe,'w.','Markersize',10);
+ylabel('f');xlabel('k'); title('F-K Vertical')
 set(gca,'fontsize',14,'YDir', 'normal');
 
 %% Plot in l-v domain
